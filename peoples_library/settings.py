@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
-# import dj_database_url
+import dj_database_url
 import environ
 env = environ.Env()
 environ.Env.read_env()
@@ -82,13 +82,19 @@ WSGI_APPLICATION = 'peoples_library.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.config(
+        # Replace this value with your local database's connection string.
+        default='postgresql://libraray_management_user:SOozQyMyC9sesXXxdFp6LbwwfmYZeXlV@dpg-cqr48clsvqrc73fpk28g-a.oregon-postgres.render.com/libraray_management',
+        
+    )
 }
-
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql_psycopg2',
