@@ -1,0 +1,55 @@
+
+{% extends 'base.html' %} 
+{% block head_title %}{{ title }}{% endblock head_title %}
+
+{% block content %}
+
+<div class="my-10 py-3 px-4 bg-white rounded-xl shadow-md">
+  <h1 class="font-bold text-3xl text-center pb-5 pt-2">Borrowed Books</h1>
+  <hr />
+  <table
+    class="table-auto mx-auto w-full px-5 rounded-xl mt-8 border dark:border-neutral-500"
+  >
+    <thead class="bg-purple-900 text-white text-left">
+      <tr
+        class="bg-gradient-to-tr from-indigo-600 to-purple-600 rounded-md py-2 px-4 text-white font-bold"
+      >
+        <th class="px-4 py-2">Borrow ID</th>
+        <th class="px-4 py-2">Book Name</th>
+        <th class="px-4 py-2">Borrowed Price</th>
+        <th class="px-4 py-2">Borrowe Date</th>
+        <th class="px-4 py-2">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for borrow in borroBook %}
+      <tr class="border-b dark:border-neutral-500">
+        <td class="px-4 py-2">
+         {{ borrow.id }}
+        </td>
+        <td class="px-4 py-3 text-s border">
+          <span
+            class="px-2 py-1 font-bold leading-tight rounded-sm text-green-700 bg-green-100"
+          >
+            {{ borrow.book.title }}
+          </span>
+        </td>
+        <td class="px-4 py-2">
+          {{ borrow.book.borrowing_price }}
+        </td>
+        <td class="px-4 py-2">
+          {{ borrow.borrowed_time }}
+        </td>
+        <td class="px-4 py-2">
+            {% if borrow.return_book %}
+            <p class="font-bold text-green-700">Book is Returned</p>
+            {% else %}
+          <a class="font-bold bg-gray-200 hover:text-blue-900 hover:bg-white border border-blue-900 font-bold px-4 py-2 rounded-lg" href="{% url "return_book" borrow.id %}">Return</a>
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock content %}
